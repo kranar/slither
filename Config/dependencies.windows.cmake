@@ -24,3 +24,5 @@ set(SDL_TTF_LIBRARY_DEBUG_PATH
   "${PROJECT_BINARY_DIR}/Dependencies/SDL2_ttf-2.0.15/build/Debug/SDL2_ttf.lib")
 set(SDL_TTF_LIBRARY_OPTIMIZED_PATH
   "${PROJECT_BINARY_DIR}/Dependencies/SDL2_ttf-2.0.15/build/Release/SDL2_ttf.lib")
+set(SLITHER_LIBRARY_DEBUG_PATH "${CMAKE_CURRENT_LIST_DIR}/../Debug/slither.lib")
+set(SLITHER_LIBRARY_OPTIMIZED_PATH "${CMAKE_CURRENT_LIST_DIR}/../Release/slither.lib")
