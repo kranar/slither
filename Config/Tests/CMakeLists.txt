@@ -7,6 +7,7 @@ add_executable(slither_tester ${source_files})
 if(UNIX)
   target_link_libraries(slither_tester pthread)
 endif()
+target_link_libraries(slither_tester slither)
 add_custom_command(TARGET slither_tester POST_BUILD COMMAND slither_tester)
 install(TARGETS slither_tester CONFIGURATIONS Debug
   DESTINATION ${TEST_INSTALL_DIRECTORY}/Debug)
