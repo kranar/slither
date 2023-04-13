@@ -1,0 +1,14 @@
+include_directories(SYSTEM ${DOCTEST_INCLUDE_PATH})
+file(GLOB source_files ${SLITHER_SOURCE_PATH}/Tests/*.cpp)
+if(MSVC)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+endif()
+add_executable(slither_tester ${source_files})
+if(UNIX)
+  target_link_libraries(slither_tester pthread)
+endif()
+add_custom_command(TARGET slither_tester POST_BUILD COMMAND slither_tester)
+install(TARGETS slither_tester CONFIGURATIONS Debug
+  DESTINATION ${TEST_INSTALL_DIRECTORY}/Debug)
+install(TARGETS slither_tester CONFIGURATIONS Release RelWithDebInfo
+  DESTINATION ${TEST_INSTALL_DIRECTORY}/Release)
