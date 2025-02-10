@@ -5,7 +5,8 @@ using namespace Slither;
 Controller::Controller(Board board)
     : m_board(std::move(board)),
       m_state(State::RUNNING),
-      m_score(0) {
+      m_score(0),
+      m_generator(std::random_device()()) {
   auto found_head = false;
   for(auto y = 0; y < m_board.get_height() && !found_head; ++y) {
     for(auto x = 0; x < m_board.get_width() && !found_head; ++x) {
@@ -105,6 +106,7 @@ Controller::State Controller::update(Direction direction) {
   m_snake_positions.push_front({new_head_x, new_head_y});
   if(ate_apple) {
     m_score += 1;
+    update_apple();
   } else {
     auto tail = m_snake_positions.back();
     m_snake_positions.pop_back();
@@ -119,4 +121,18 @@ Controller::State Controller::update(Direction direction) {
 
 int Controller::get_score() const {
   return m_score;
+}
+
+void Controller::update_apple() {
+  auto distribution = std::uniform_int_distribution<>(
+    0, m_board.get_width() * m_board.get_height() - 1);
+  while(true) {
+    auto index = distribution(m_generator);
+    auto x = index % m_board.get_width();
+    auto y = index / m_board.get_height();
+    if(m_board.get(x, y) == Board::Cell::EMPTY) {
+      m_board.set(x, y, Board::Cell::APPLE);
+      break;
+    }
+  }
 }

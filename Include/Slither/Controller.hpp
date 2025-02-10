@@ -2,6 +2,7 @@
 #define SLITHER_CONTROLLER_HPP
 #include <cstdint>
 #include <deque>
+#include <random>
 #include "Slither/Board.hpp"
 
 namespace Slither {
@@ -21,6 +22,7 @@ namespace Slither {
       /** Represents the game state. */
       enum class State : std::uint8_t {
         RUNNING,
+        VICTORY,
         GAME_OVER
       };
 
@@ -50,6 +52,9 @@ namespace Slither {
       State m_state;
       int m_score;
       std::deque<std::pair<int, int>> m_snake_positions;
+      std::mt19937 m_generator;
+
+      void update_apple();
   };
 }
 

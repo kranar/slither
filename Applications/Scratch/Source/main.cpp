@@ -85,7 +85,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
   auto event = SDL_Event();
   auto direction = Controller::Direction::RIGHT;
   auto last_update_time = SDL_GetTicks();
-  auto update_interval = 333;
+  auto update_interval = 250;
   while(!quit) {
     while (SDL_PollEvent(&event)) {
       if(event.type == SDL_QUIT) {
@@ -103,6 +103,12 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
             break;
           case SDLK_RIGHT:
             direction = Controller::Direction::RIGHT;
+            break;
+          case SDLK_PAGEDOWN:
+            update_interval = std::max(50, update_interval - 50);
+            break;
+          case SDLK_PAGEUP:
+            update_interval = std::min(1000, update_interval + 50);
             break;
           case SDLK_ESCAPE:
             quit = true;
